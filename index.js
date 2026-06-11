@@ -28,7 +28,7 @@ const config = {
 const client = new line.Client(config);
 
 // 4. สร้าง Route สำหรับรับ Webhook จาก LINE
-app.post('/webhook', line.middleware(config), (req, res) => {
+app.post('https://line-bot-verification.onrender.com/webhook', line.middleware(config), (req, res) => {
   Promise.all(req.body.events.map(handleLineEvent))
     .then(() => res.status(200).end())
     .catch((err) => {
