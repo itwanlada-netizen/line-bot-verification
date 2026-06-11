@@ -70,7 +70,7 @@ async function handleLineEvent(event) {
         messages: [{
           type: 'image',
           originalContentUrl: 'https://drive.google.com/file/d/1sMIRQK_L63WQ_HH9DHogO8xchYVGGF-0/view?usp=sharing', // เปลี่ยนเป็นลิงก์รูป QR Code จริงของคุณ
-          previewImageUrl: 'https://drive.google.com/file/d/1sMIRQK_L63WQ_HH9DHogO8xchYVGGF-0/view?usp=sharing'
+          previewImageUrl: 'https://drive.google.com/drive-viewer/AKGpihaiBORHtSfVFbmb8ii1wdyuMOx3JKNP8vY9-Y54NHz7uceeih-N6xF8C4pCxehrny9hwEDNg4LwIA74s5KUxYOXoQTqZ71UMiQ=w1920-h919-rw-v1?auditContext=forDisplay'
         }]
       });
     } else {
