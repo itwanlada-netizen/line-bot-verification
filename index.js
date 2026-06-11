@@ -69,8 +69,8 @@ async function handleLineEvent(event) {
         replyToken: event.replyToken,
         messages: [{
           type: 'image',
-          originalContentUrl: 'https://yourdomain.com/qrcode.png', // เปลี่ยนเป็นลิงก์รูป QR Code จริงของคุณ
-          previewImageUrl: 'https://yourdomain.com/qrcode-preview.png'
+          originalContentUrl: 'https://drive.google.com/file/d/1sMIRQK_L63WQ_HH9DHogO8xchYVGGF-0/view?usp=sharing', // เปลี่ยนเป็นลิงก์รูป QR Code จริงของคุณ
+          previewImageUrl: 'https://drive.google.com/file/d/1sMIRQK_L63WQ_HH9DHogO8xchYVGGF-0/view?usp=sharing'
         }]
       });
     } else {
