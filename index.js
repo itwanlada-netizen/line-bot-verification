@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const vision = require('@google-cloud/vision');
 // ... ตั้งค่า config ...
 const client = new messagingApi.MessagingApiClient({
-  channelAccessToken: process.env.LINE_ACCESS_TOKEN // แนะนำให้เรียกผ่าน env ตรงนี้เลยครับ
+  channelAccessToken: process.env.LINE_ACCESS_TOKEN
 });
 const app = express();
 
