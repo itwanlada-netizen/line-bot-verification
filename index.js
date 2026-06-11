@@ -1,8 +1,11 @@
 const express = require('express');
-const line = require('@line/bot-sdk');
+const { messagingApi } = require('@line/bot-sdk');
 const mongoose = require('mongoose');
 const vision = require('@google-cloud/vision');
-
+// ... ตั้งค่า config ...
+const client = new messagingApi.MessagingApiClient({
+  channelAccessToken: process.env.LINE_ACCESS_TOKEN // แนะนำให้เรียกผ่าน env ตรงนี้เลยครับ
+});
 const app = express();
 
 // 1. เชื่อมต่อ MongoDB Atlas (เอา Connection String จากบทความที่แล้วมาแปะที่นี่)
