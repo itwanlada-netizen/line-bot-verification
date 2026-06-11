@@ -59,9 +59,9 @@ async function handleLineEvent(event) {
     const [result] = await visionClient.textDetection({ image: { content: imageBuffer } });
     const detectedText = result.fullTextAnnotation ? result.fullTextAnnotation.text : '';
 
-    const isGoogleFormSuccess = detectedText.includes('ได้รับคำตอบของคุณแล้ว') || 
-                                detectedText.includes('บันทึกคำตอบของคุณแล้ว');
-
+const isGoogleFormSuccess = detectedText.includes('บันทึกคำตอบ') || 
+                            detectedText.includes('ได้รับคำตอบ') ||
+                            detectedText.includes('คำตอบของคุณ');
     if (isGoogleFormSuccess) {
       await UserLog.create({ lineUserId, status: 'SUCCESS', detectedText });
 
