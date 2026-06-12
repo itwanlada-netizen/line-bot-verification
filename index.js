@@ -81,8 +81,8 @@ try {
         messages: [{
           type: 'image',
           // แก้ไขเป็นลิงก์ตรง (Direct Link) ของ Google Drive ที่ระบบ LINE สามารถดึงรูปไปแสดงได้ทันที
-          originalContentUrl: 'https://drive.google.com/uc?export=view&id=1sMIRQK_L63WQ_HH9DHog08xchYVGGF-0', 
-          previewImageUrl: 'https://drive.google.com/uc?export=view&id=1sMIRQK_L63WQ_HH9DHog08xchYVGGF-0'
+          originalContentUrl: 'https://i.postimg.cc/nzmpxBkT/TPM-01.png', 
+          previewImageUrl: 'https://i.postimg.cc/nzmpxBkT/TPM-01.png'
         }]
       });
     } else {
