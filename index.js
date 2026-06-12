@@ -63,7 +63,7 @@ const isGoogleFormSuccess = detectedText.includes('บันทึกคำต�
                             detectedText.includes('ได้รับคำตอบ') ||
                             detectedText.includes('คำตอบของคุณ');
     if (isGoogleFormSuccess) {
-      await UserLog.create({ lineUserId, status: 'SUCCESS', detectedText });
+     // await UserLog.create({ lineUserId, status: 'SUCCESS', detectedText });
 
       return client.replyMessage({
         replyToken: event.replyToken,
@@ -74,7 +74,7 @@ const isGoogleFormSuccess = detectedText.includes('บันทึกคำต�
         }]
       });
     } else {
-      await UserLog.create({ lineUserId, status: 'FAILED', detectedText });
+    //  await UserLog.create({ lineUserId, status: 'FAILED', detectedText });
       return replyMissingInfo(event.replyToken);
     }
   } catch (error) {
