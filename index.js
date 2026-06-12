@@ -50,31 +50,43 @@ async function handleLineEvent(event) {
     return replyMissingInfo(event.replyToken);
   }
 
-  try {
+try {
     // ใช้ blobClient สำหรับดึงไฟล์รูปภาพของเวอร์ชันใหม่
     const stream = await blobClient.getMessageContent(event.message.id);
-    const imageBuffer = await streamToBuffer(stream); 
-    
-    const visionClient = new vision.ImageAnnotatorClient();
+    const imageBuffer = await streamToBuffer(stream);
+    const visionClient = new vision.ImageAnnotatorClient(
+      process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON 
+        ? { credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) }
+        : {}
+    );
+
+    // 1. เรียกใช้งาน AI เพื่อดึงข้อความจากรูปภาพออกมาก่อน
     const [result] = await visionClient.textDetection({ image: { content: imageBuffer } });
     const detectedText = result.fullTextAnnotation ? result.fullTextAnnotation.text : '';
 
-const isGoogleFormSuccess = detectedText.includes('บันทึกคำตอบ') || 
-                            detectedText.includes('ได้รับคำตอบ') ||
-                            detectedText.includes('คำตอบของคุณ');
+    // 2. เมื่อได้ข้อความมาแล้ว ค่อยนำมาแปลงเป็นตัวพิมพ์เล็กเพื่อเช็คเงื่อนไข
+    const lowerCaseText = detectedText.toLowerCase();
+
+    const isGoogleFormSuccess = lowerCaseText.includes('บันทึกคำตอบ') || 
+                                lowerCaseText.includes('ได้รับคำตอบ') || 
+                                lowerCaseText.includes('คำตอบของคุณ') ||
+                                lowerCaseText.includes('qr code') ||
+                                lowerCaseText.includes('qrcode');
+
     if (isGoogleFormSuccess) {
-     // await UserLog.create({ lineUserId, status: 'SUCCESS', detectedText });
+      // await UserLog.create({ lineUserId, status: 'SUCCESS', detectedText });
 
       return client.replyMessage({
         replyToken: event.replyToken,
         messages: [{
           type: 'image',
-          originalContentUrl: 'https://drive.google.com/file/d/1sMIRQK_L63WQ_HH9DHogO8xchYVGGF-0', // เปลี่ยนเป็นลิงก์รูป QR Code จริงของคุณ
-          previewImageUrl: 'https://drive.google.com/file/d/1sMIRQK_L63WQ_HH9DHogO8xchYVGGF-0'
+          // แก้ไขเป็นลิงก์ตรง (Direct Link) ของ Google Drive ที่ระบบ LINE สามารถดึงรูปไปแสดงได้ทันที
+          originalContentUrl: 'https://drive.google.com/uc?export=view&id=1sMIRQK_L63WQ_HH9DHog08xchYVGGF-0', 
+          previewImageUrl: 'https://drive.google.com/uc?export=view&id=1sMIRQK_L63WQ_HH9DHog08xchYVGGF-0'
         }]
       });
     } else {
-    //  await UserLog.create({ lineUserId, status: 'FAILED', detectedText });
+      // await UserLog.create({ lineUserId, status: 'FAILED', detectedText });
       return replyMissingInfo(event.replyToken);
     }
   } catch (error) {
